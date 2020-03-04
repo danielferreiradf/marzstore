@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FiShoppingCart, FiAlignJustify } from "react-icons/fi";
+import { FiShoppingCart, FiAlignJustify, FiX } from "react-icons/fi";
+
+import Menu from "../Menu/Menu";
 
 import Logo from "../../assets/images/logo.svg";
-
 import { Container, Cart, ContainerFooter } from "./HeaderStyles";
 
 export default function Header() {
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuIsOpen(!menuIsOpen);
+  };
+
   return (
     <>
       <Container>
-        <div>
-          <FiAlignJustify size={36} />
+        <div onClick={() => toggleMenu()}>
+          {menuIsOpen ? <FiX size={36} /> : <FiAlignJustify size={36} />}
         </div>
 
         <Link to="/">
@@ -31,6 +38,8 @@ export default function Header() {
         <p>free delivery on all orders</p>
         <p>free returns</p>
       </ContainerFooter>
+
+      <Menu menuIsOpen={menuIsOpen} toggleMenu={toggleMenu} />
     </>
   );
 }
